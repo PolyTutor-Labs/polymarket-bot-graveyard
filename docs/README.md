@@ -1,6 +1,6 @@
 # Docs
 
-Educational layer for this **failure-analysis archive**. Root keeps GitHub-standard files plus `SECURITY_AUDIT.md` (unchanged historical audit).
+Educational layer for this **failure-analysis archive**. Root keeps GitHub-standard files plus `SECURITY_AUDIT.md` (unchanged historical audit), `CHANGELOG.md`, `FINAL_REPORT.md`, and `VERSION`.
 
 ## Start here
 
@@ -26,5 +26,7 @@ Educational layer for this **failure-analysis archive**. Root keeps GitHub-stand
 | --- | --- |
 | [`../SECURITY.md`](../SECURITY.md) | Public policy after hardening |
 | [`../SECURITY_AUDIT.md`](../SECURITY_AUDIT.md) | Pre-PolyTutor audit record — keep as-is |
+| [`../CHANGELOG.md`](../CHANGELOG.md) | Public educational release notes (v0.1.0) |
+| [`../FINAL_REPORT.md`](../FINAL_REPORT.md) | Task 11 public-release checklist |
 
 Code snapshots: [`../bots/`](../bots/). Timeline: [`../assets/timeline.svg`](../assets/timeline.svg).
