@@ -88,7 +88,7 @@ Nothing currently tracked needed deletion for public educational release. Keep u
 
 ## CI
 
-`.github/workflows/ci.yml` stays a docs lint + offline link check. Least privilege: `permissions: contents: read` (no `contents: write`). Third-party Actions are **SHA-pinned** (mutable major tags are not used). Dependabot remains `github-actions` only. This is not a production deploy pipeline.
+`.github/workflows/ci.yml` is archive quality CI: markdown lint, offline internal links, `python -m compileall`, `scripts/security/check_secrets.py`, and quality-infra pytest (collection limited to `tests/`; `bots/` is excluded). Least privilege: `permissions: contents: read` (no `contents: write`). Third-party Actions are **SHA-pinned** (mutable major tags are not used). Dependabot remains `github-actions` only. This is not a production deploy pipeline.
 
 ## Dependencies
 

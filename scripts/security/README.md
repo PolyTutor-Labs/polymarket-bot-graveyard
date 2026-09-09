@@ -10,4 +10,4 @@ Educational-repo helpers. Not a production security platform.
 python3 scripts/security/check_secrets.py
 ```
 
-Exit `0` if clean, `1` if a finding is reported. See [`SECURITY.md`](../../SECURITY.md).
+Exit `0` if clean, `1` if a finding is reported. CI runs this on every pull request (job **Secret scan**). See [`SECURITY.md`](../../SECURITY.md).

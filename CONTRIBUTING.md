@@ -29,6 +29,19 @@ Some of these bots were *close*. If you want to pick one up:
 - **This is not investment advice** and contributions must not present it as such. See [DISCLAIMER.md](DISCLAIMER.md).
 - Keep discussion technical and respectful.
 
+## Quality gates
+
+This archive has **no trading or P&L test suite**. CI checks syntax, secrets, and docs — not historical bot behavior. `pytest.ini` collects only `tests/` and excludes `bots/`. Do not add tests that claim profit, and do not rewrite snapshots to satisfy a linter.
+
+```text
+python3 -m compileall -q -x '(.venv|venv|__pycache__|\.git)' .
+python3 scripts/security/check_secrets.py
+python3 -m pytest
+npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+```
+
+`pytest` is quality-infrastructure only (CI installs `pytest==8.3.4`). It is not an application dependency of the historical bots.
+
 ## Editorial / docs PRs
 
 Fixing a typo, tightening a chapter, or improving a diagram? Just open a PR. Prose lives under [CC BY 4.0](LICENSE-DOCS); code lives under [MIT](LICENSE).
