@@ -14,22 +14,39 @@ Scheduled Reports:
 
 import asyncio
 import math
+import shutil
 import subprocess
 import json
 import urllib.request
 import os
+import sys
 import time
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
 import asyncpg
 
+_SNAPSHOT_DIR = Path(__file__).resolve().parent
+_raw_bot_dir = os.environ.get("BOT_DIR", "").strip()
+_raw_python = os.environ.get("PYTHON", "").strip()
+_raw_pg_isready = os.environ.get("PG_ISREADY", "").strip()
+_raw_brew = os.environ.get("BREW", "").strip()
+
 PHONE = os.environ.get("ALERT_PHONE", "")
 API_BASE = "http://127.0.0.1:8080"
-BOT_DIR = "/Users/calabrofficial/Desktop/SPECTRIX_2_0"
-PYTHON = "/opt/homebrew/bin/python3"
+BOT_DIR = str(Path(_raw_bot_dir).expanduser()) if _raw_bot_dir else str(_SNAPSHOT_DIR)
+PYTHON = str(Path(_raw_python).expanduser()) if _raw_python else (
+    shutil.which("python3") or sys.executable
+)
 LOG_FILE = os.path.join(BOT_DIR, "data", "watchdog.log")
 STATE_FILE = "/tmp/spectrix_watchdog_state.json"
 HEARTBEAT_FILE = "/tmp/spectrix_watchdog_heartbeat"
+PG_ISREADY = str(Path(_raw_pg_isready).expanduser()) if _raw_pg_isready else (
+    shutil.which("pg_isready") or "pg_isready"
+)
+BREW = str(Path(_raw_brew).expanduser()) if _raw_brew else (
+    shutil.which("brew") or "brew"
+)
 
 # ---------------------------------------------------------------------------
 # Thresholds
@@ -159,7 +176,7 @@ def check_bot_alive():
 def check_postgres():
     try:
         r = subprocess.run(
-            ["/opt/homebrew/opt/postgresql@17/bin/pg_isready"],
+            [PG_ISREADY],
             capture_output=True, text=True, timeout=5)
         return r.returncode == 0
     except Exception:
@@ -473,7 +490,7 @@ def main():
         alerts_critical.append("PostgreSQL DOWN")
         try:
             subprocess.run(
-                ["/opt/homebrew/bin/brew", "services", "start", "postgresql@17"],
+                [BREW, "services", "start", "postgresql@17"],
                 capture_output=True, timeout=15)
             time.sleep(3)
             if check_postgres():
