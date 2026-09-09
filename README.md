@@ -136,6 +136,9 @@ polymarket-bot-graveyard/
 ├── DISCLAIMER.md
 ├── SECURITY.md
 ├── SECURITY_AUDIT.md          # pre-PolyTutor audit; keep as-is
+├── CHANGELOG.md               # public educational release notes (v0.1.0)
+├── FINAL_REPORT.md            # Task 11 release checklist
+├── VERSION                    # 0.1.0
 ├── LICENSE                    # MIT (code under bots/)
 ├── LICENSE-DOCS               # CC BY 4.0 (writing)
 ├── pytest.ini                 # collects tests/ only; excludes bots/
@@ -207,6 +210,8 @@ python3 -m pytest
 | [SECURITY_AUDIT.md](SECURITY_AUDIT.md) | Pre-PolyTutor audit record (keep as-is) |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | What contributions are accepted |
 | [DISCLAIMER.md](DISCLAIMER.md) | Educational-use disclaimer |
+| [CHANGELOG.md](CHANGELOG.md) | Public educational release notes (v0.1.0) |
+| [FINAL_REPORT.md](FINAL_REPORT.md) | Task 11 public-release checklist |
 
 ## Risks and Limitations
 
