@@ -1,6 +1,6 @@
 # 03 — Long-Tail Sniper (v3)
 
-**Dates:** 26 April – 4 May 2026 · **Mode:** never deployed live · **Outcome:** ~0 P&L, 0 fills · **Code:** folded into [`bots/02-phantom/`](../bots/02-phantom/) (same codebase, different scanner)
+**Dates:** 26 April – 4 May 2026 · **Mode:** never deployed live · **Outcome:** ~0 P&L, 0 fills · **Code:** folded into [`bots/02-phantom/`](../../bots/02-phantom/) (same codebase, different scanner)
 
 The reaction to Phantom was correct in theory and broken in practice. If the liquid BTC markets are too efficient, go where the money isn't looking.
 

@@ -1,6 +1,6 @@
 # 04 — Maker-Only BTC (v4)
 
-**Dates:** 4 May – 1 June 2026 · **Mode:** paper (55 days) · **Outcome:** the maker *lost* money · **Code:** in [`bots/03-05-spectrix/`](../bots/03-05-spectrix/)
+**Dates:** 4 May – 1 June 2026 · **Mode:** paper (55 days) · **Outcome:** the maker *lost* money · **Code:** in [`bots/03-05-spectrix/`](../../bots/03-05-spectrix/)
 
 Three versions had failed at *predicting*. So v4 tried to stop predicting. This is the longest-running bot in the graveyard — 55 continuous days — and the one that most thoroughly disproved its own thesis.
 
@@ -37,7 +37,7 @@ There's a second, quieter cause of death: **the infrastructure tax.** Those 55 d
 
 ## What survived
 
-- **The immortal async service** (launchd + `caffeinate -i` + heartbeat watchdog with `os._exit(1)` self-restart) genuinely works — it ran for 8 days straight and self-healed through sleep/wake cycles. It's the single most reusable piece of infrastructure in the whole project. See [`journey/99-lessons.md`](99-lessons.md).
+- **The immortal async service** (launchd + `caffeinate -i` + heartbeat watchdog with `os._exit(1)` self-restart) genuinely works — it ran for 8 days straight and self-healed through sleep/wake cycles. It's the single most reusable piece of infrastructure in the whole project. See [`docs/journey/99-lessons.md`](99-lessons.md).
 - The **maker rebate ≠ free money** lesson, learned in full: rebates are compensation for adverse selection, and on an efficient book the compensation is priced correctly *against* you.
 - The exhaustion of the "just collect the spread" idea, which cleared the way for the only honest question left: *does an edge exist here at all, before I risk anything?*
 

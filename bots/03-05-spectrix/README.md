@@ -1,6 +1,6 @@
 # bots/03-05-spectrix — Long-Tail Sniper, Maker-Only BTC, Oracle Gap (v3–v5)
 
-Curated, sanitized snapshot from the final SPECTRIX codebase (v3 → v5). **Illustrative excerpts, not a runnable package.** Read the stories in [`journey/03-long-tail-sniper.md`](../../journey/03-long-tail-sniper.md), [`journey/04-maker-btc.md`](../../journey/04-maker-btc.md), and [`journey/05-oracle-gap.md`](../../journey/05-oracle-gap.md).
+Curated, sanitized snapshot from the final SPECTRIX codebase (v3 → v5). **Illustrative excerpts, not a runnable package.** Read the stories in [`docs/journey/03-long-tail-sniper.md`](../../docs/journey/03-long-tail-sniper.md), [`docs/journey/04-maker-btc.md`](../../docs/journey/04-maker-btc.md), and [`docs/journey/05-oracle-gap.md`](../../docs/journey/05-oracle-gap.md).
 
 This folder holds the **best things the whole project produced** — not a winning strategy (there wasn't one), but the honest measurement rig and the infrastructure that ran it.
 
