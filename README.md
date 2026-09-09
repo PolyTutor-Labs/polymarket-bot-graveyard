@@ -2,7 +2,7 @@
 
 > Six autonomous trading bots. Three months. Zero edge found. This is the honest, step-by-step post-mortem of every one of them — what I set out to do, how each died, and the one thing that finally worked.
 
-[![CI](https://github.com/Hiberius/polymarket-bot-graveyard/actions/workflows/ci.yml/badge.svg)](https://github.com/Hiberius/polymarket-bot-graveyard/actions/workflows/ci.yml)
+[![CI](https://github.com/PolyTutor-Labs/polymarket-bot-graveyard/actions/workflows/ci.yml/badge.svg)](https://github.com/PolyTutor-Labs/polymarket-bot-graveyard/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](LICENSE-DOCS)
 [![Built with Claude Fable 5](https://img.shields.io/badge/Built%20with-Claude%20Fable%205-8A2BE2.svg)](https://www.anthropic.com/)
