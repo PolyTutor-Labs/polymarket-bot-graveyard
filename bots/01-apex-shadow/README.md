@@ -1,6 +1,8 @@
 # bots/01-apex-shadow — Apex Predator & Shadow Sniper (v0–v1)
 
-Curated, sanitized snapshot from the original ~8,100-line trading engine that ran as v0/v1. **These are illustrative excerpts, not a runnable package** — the execution layer, wallet client, config, and API keys have been deliberately left out. Read the story in [`docs/journey/01-apex-and-shadow.md`](../../docs/journey/01-apex-and-shadow.md).
+Curated, sanitized snapshot from the original ~8,100-line trading engine that ran as v0/v1. **These are illustrative excerpts, not a runnable package** — the execution layer, wallet client, config, and API keys have been deliberately left out.
+
+Study path: [`docs/experiment-guide.md`](../../docs/experiment-guide.md) · [`docs/architecture.md`](../../docs/architecture.md) · [`docs/journey/01-apex-and-shadow.md`](../../docs/journey/01-apex-and-shadow.md).
 
 The files here are the parts worth keeping: the **risk primitives**. They're pure logic with no Polymarket-specific assumptions, and they're the one thing this disaster produced that's reusable anywhere.
 

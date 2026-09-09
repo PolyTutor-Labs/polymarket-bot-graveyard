@@ -1,6 +1,8 @@
 # Bot series
 
-Sanitized, non-runnable excerpts from six failed generations. This is a failure archive for study — not a trading framework and not a `src/strategies/` layout.
+Sanitized, non-runnable excerpts from six failed generations. This is a **failure archive** for study — not a trading framework and not a `src/strategies/` layout.
+
+How to read a generation: [`docs/experiment-guide.md`](../docs/experiment-guide.md). Snapshot layers: [`docs/architecture.md`](../docs/architecture.md).
 
 | Series | Snapshot | Narrative |
 |--------|----------|-----------|
@@ -9,4 +11,4 @@ Sanitized, non-runnable excerpts from six failed generations. This is a failure 
 | v3 Long-Tail Sniper | [`02-phantom/`](02-phantom/) (same codebase, different scanner) | [`docs/journey/03-long-tail-sniper.md`](../docs/journey/03-long-tail-sniper.md) |
 | v4 Maker-Only BTC + v5 Oracle Gap | [`03-05-spectrix/`](03-05-spectrix/) | [`docs/journey/04-maker-btc.md`](../docs/journey/04-maker-btc.md), [`docs/journey/05-oracle-gap.md`](../docs/journey/05-oracle-gap.md) |
 
-`03-05-spectrix/watchdog.py` stays in that snapshot. Do not relocate it into `scripts/` or `src/`. It is a historical automation helper (process kill/restart, AppleScript alerts). Documented in [SECURITY.md](../SECURITY.md#watchdog-historical-automation) — do not run it against a live host.
+`03-05-spectrix/watchdog.py` stays in that snapshot. Do not relocate it into `scripts/` or `src/`. It is a historical automation helper (process kill/restart, AppleScript alerts). Documented in [SECURITY.md](../SECURITY.md#watchdog-historical-automation) and [docs/watchdog-safety.md](../docs/watchdog-safety.md) — do not run it against a live host.
