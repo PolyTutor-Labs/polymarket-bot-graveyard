@@ -21,8 +21,20 @@ venv/
 !.env.example
 *.pem
 *.key
+*.p12
+*.pfx
+*.keystore
+*.wallet
 wallets.json
+wallet.json
+credentials.json
+id_rsa
+id_ed25519
+id_dsa
+id_ecdsa
 secrets/
+dump.sql
+*.dump
 
 # Node (contributor tooling only)
 node_modules/

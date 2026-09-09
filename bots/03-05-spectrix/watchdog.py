@@ -10,6 +10,12 @@ Severity Levels:
 
 Scheduled Reports:
   3x/day at 08:00, 15:00, 23:00 — bankroll, PnL, positions, strategy status
+
+Historical educational snapshot — not a production service.
+If executed on a real host this historical implementation can pkill/kill local
+processes, send iMessage via AppleScript when ALERT_PHONE is set, start
+PostgreSQL via Homebrew, and write /tmp state. Do not run it against a live
+trading or production stack. See SECURITY.md (watchdog section).
 """
 
 import asyncio

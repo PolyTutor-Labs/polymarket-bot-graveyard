@@ -86,10 +86,13 @@ polymarket-bot-graveyard/
 ├── docs/AUTOPSY.md   ← the full, unflinching final autopsy (real numbers, from the database)
 ├── bots/             ← curated snapshots of each failed series (see bots/README.md)
 ├── .env.example      ← placeholder names the snapshots actually read (no secrets)
+├── SECURITY.md       ← public security policy (archived experiment; watchdog risks)
 └── assets/           ← timeline diagram
 ```
 
 Best path: [`docs/journey/00-overview.md`](docs/journey/00-overview.md) → the numbered chapters → [`docs/AUTOPSY.md`](docs/AUTOPSY.md).
+
+This is an archived experiment, not a live trading service. See [SECURITY.md](SECURITY.md) before copying any ops helper (especially `watchdog.py`).
 
 ---
 
