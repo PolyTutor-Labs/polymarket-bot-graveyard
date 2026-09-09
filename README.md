@@ -85,6 +85,7 @@ polymarket-bot-graveyard/
 │                        Goal → Hypothesis → How I built it → What happened → Why it died → What survived
 ├── docs/AUTOPSY.md   ← the full, unflinching final autopsy (real numbers, from the database)
 ├── bots/             ← curated snapshots of each failed series (see bots/README.md)
+├── .env.example      ← placeholder names the snapshots actually read (no secrets)
 └── assets/           ← timeline diagram
 ```
 
