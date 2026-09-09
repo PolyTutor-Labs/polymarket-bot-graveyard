@@ -64,6 +64,8 @@ If someone executes this file on a real host, residual operational risks include
 
 **Do not run `watchdog.py` against a live trading stack, a shared machine, or any database you care about.**
 
+Educational write-up (risks only; file unchanged): [docs/watchdog-safety.md](docs/watchdog-safety.md).
+
 ## Data and artifacts
 
 | Artifact | Decision | Rationale |

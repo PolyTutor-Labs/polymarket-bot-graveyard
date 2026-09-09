@@ -1,119 +1,251 @@
-# 🪦 Polymarket Bot Graveyard
+# Polymarket Bot Graveyard
 
-> Six autonomous trading bots. Three months. Zero edge found. This is the honest, step-by-step post-mortem of every one of them — what I set out to do, how each died, and the one thing that finally worked.
+**PolyTutor Labs · Educational archive**
+
+A failure-analysis archive of six historical Polymarket bot experiments (March–June 2026). The curriculum is **failure analysis → lessons learned → engineering education**.
+
+This repository is a **learning resource**. It is not a live trading service, not a production bot, and not investment advice.
 
 [![CI](https://github.com/PolyTutor-Labs/polymarket-bot-graveyard/actions/workflows/ci.yml/badge.svg)](https://github.com/PolyTutor-Labs/polymarket-bot-graveyard/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](LICENSE-DOCS)
-[![Built with Claude Fable 5](https://img.shields.io/badge/Built%20with-Claude%20Fable%205-8A2BE2.svg)](https://www.anthropic.com/)
 
-**This is not a "how I made money" repo. It's the opposite.** Between March and June 2026 I built, ran, and killed six generations of automated trading bots on [Polymarket](https://polymarket.com), one after another, each convinced it had found an edge the last one missed. None had. I'm publishing the whole graveyard — code, plans, and a brutally honest autopsy — because a documented failure is worth more than a hidden one, and because the *reasons* these failed are structural and reusable knowledge.
+> Educational packaging of [Hiberius/polymarket-bot-graveyard](https://github.com/Hiberius/polymarket-bot-graveyard).
+> Study the experiments. Do not treat the snapshots as a trading desk. See [DISCLAIMER.md](DISCLAIMER.md).
 
-If you're about to build a prediction-market bot: **read this first.** It might save you three months.
+## What this repository is
 
----
+An **educational archive** of historical implementations that were built, measured, and shut down.
 
-## TL;DR
+Use it to study:
 
-- **6 bots in 3 months** (29 Mar → 28 Jun 2026). **Zero edge found. Zero profitable live trades. Ever.**
-- **Real money lost: roughly $45**, all in the first two weeks (v0 + v1), after which the Polymarket wallet was **banned** for order-spam. Everything after that was paper / shadow only.
-- Every version dies on the **same wall**: an assumed edge that, measured honestly, **does not exist** for a retail trader with a few hundred dollars.
-- The only thing that ever worked was the **shadow-first discipline of the last version** — it *correctly refused* to promote a coin-flip strategy to live trading. The system's job was to say "there's no edge here," and it did. **That "no" is the deliverable.**
+- how an assumed edge was specified, implemented, and later refuted
+- why paper ledgers and self-reported P&L can disagree with a database
+- how a calibration gate can refuse to promote a signal that looks like a coin flip
+- how operational automation (a local watchdog) can cost more attention than the research question
 
----
+## What this repository is not
 
-## The journey at a glance
+This repository is **not**:
 
+- a production trading platform or live service
+- a collection of strategies to run with real funds
+- a signal service or investment, legal, or tax advice
+- a playbook for extracting an edge from Polymarket
+
+Historical paper, shadow, and live figures in the autopsy are **research notes**, not a forecast of future results.
+
+## PolyTutor Labs
+
+This project is maintained by **PolyTutor Labs** as an educational packaging of an existing open-source graveyard.
+
+PolyTutor work on this repository includes:
+
+- repository organization
+- portability (repository-relative paths)
+- security hardening and a published security audit
+- test and quality-gate stabilization
+- educational documentation
+
+The original experiment code and first-person autopsy were not authored from scratch here. See [Attribution](#attribution).
+
+This archive is **not affiliated with Polymarket**.
+
+## About This Project
+
+Between 29 March and 28 June 2026 the original author built six generations of automated Polymarket bots. Live capital was used only in the first two weeks (v0 and v1). Those runs ended in roughly **$40–$47** of losses and a **wallet ban** after tens of thousands of rejected orders. Everything after that was paper or shadow measurement.
+
+The last generation (v5, Oracle Gap) was built to measure a signal against real outcomes **before** any live intent. Forward sports calibration landed near a coin flip (Brier **0.2377** on 332 resolutions). The gate set `graduated = FALSE` on every category and no live trade was placed after the ban.
+
+The snapshots under `bots/` are **sanitized, incomplete excerpts**. The execution layer, wallet client, and credentials were removed on purpose. They will not trade as-is.
+
+## What You Will Learn
+
+- How to read a failed experiment as engineering evidence: hypothesis, implementation, outcome, death mode.
+- Why shipping unvalidated strategies to a live wallet makes it impossible to separate bugs from a missing edge.
+- Why a positive paper ledger on a small sample is noise, and why a bot’s self-report can disagree with `adjusted_pnl` in a database.
+- How latency (for example a 2–11s multi-model call) can exceed a sub-second repricing window.
+- How a static fair-price table can invert when the market regime changes.
+- How a calibration / graduation gate is used as a **research control**, not as permission to trade.
+- How a local ops watchdog (process kill, restarts, messaging) becomes an infrastructure tax — and why this archive tells you **not** to run it.
+
+This project does **not** teach a method for extracting returns from prediction markets.
+
+## Features
+
+Verified in the current tree:
+
+- Six documented historical experiments (v0–v5) with a shared chapter skeleton: goal → hypothesis → build → outcome → death → what survived
+- Sanitized snapshots: risk primitives, analysis fragments, oracle measurement, and a SQL schema
+- A first-person autopsy with figures read from PostgreSQL on 2026-06-28 ([`docs/AUTOPSY.md`](docs/AUTOPSY.md))
+- A historical SPECTRIX watchdog kept **in place** as an ops case study — documented, not rewritten
+- Quality infrastructure: `python -m compileall`, `scripts/security/check_secrets.py`, and pytest limited to `tests/`
+- Published security policy and pre-PolyTutor audit ([SECURITY.md](SECURITY.md), [SECURITY_AUDIT.md](SECURITY_AUDIT.md))
+
+There is no application lockfile and no live order router in this checkout.
+
+## Historical Experiments
+
+Each row is a **research note**, not a performance claim. Modes and figures come from the autopsy and journey chapters.
+
+| # | Codename | What was tried | How it ended | Engineering lesson |
+|---|----------|----------------|--------------|--------------------|
+| v0 | Apex Predator | Avellaneda–Stoikov market maker on binary markets | ~4 hours live; ~−$20; 56,000+ rejected orders; wallet flagged | Do not send a market maker live without a paper warm-up |
+| v1 | Shadow Sniper | Copy-wallet, momentum, neg-risk, cross-venue | 6 days live; bought 9 times with no auto-exit; same wallet banned | Design the exit path before the entry path |
+| v2 | Phantom | BTC 5-minute UP/DOWN plus a 3-model consensus | Paper only. Raw ledger +$2,491.86 vs `adjusted_pnl` +$649.11; UP split rode a trend | A short paper ledger can be directional exposure, not a measured forecast |
+| v3 | Long-Tail Sniper | Scanner over 480+ slower markets | Funnel 13,860 signals → 0 fills; model latency 2–11s vs window &lt;1s | Elegant design still fails if plumbing and latency do not match the book |
+| v4 | Maker-Only BTC | Chainlink fair-price maker + rebate on BTC 5m/15m/1h | 55 days paper; `adjusted_pnl` **−$277.09** | A rebate does not automatically cover adverse selection |
+| v5 | Oracle Gap | Measure forward on real outcomes before any live intent | Sports Brier 0.2377 (n=332); BTC–Deribit win rate 49% (n=35); **0** graduated categories | An honest gate that refuses promotion is a successful research instrument |
+
+Timeline diagram: [`assets/timeline.svg`](assets/timeline.svg). How to study a generation: [docs/experiment-guide.md](docs/experiment-guide.md).
+
+## Architecture Overview
+
+This checkout is an **archive of fragments**, not a running desk.
+
+```text
+Historical narrative (docs/journey, docs/AUTOPSY.md)
+        |
+        v
+Sanitized snapshots (bots/)
+        |
+        v
+Study / quality gates only
+        x  no wallet, no live router
 ```
-v0  Apex Predator     29 Mar        4 hours     market maker        → ~-$20 real, wallet flagged
-v1  Shadow Sniper     30 Mar–5 Apr  6 days       4 event strategies  → ~-$40 real, wallet BANNED
-── real money ends here. everything below is paper / shadow ──
-v2  Phantom           11 Apr–4 May  paper        BTC 5-min + 3-AI    → "profit" was a lie (beta, not alpha)
-v3  Long-Tail Sniper  26 Apr–4 May  never live   480+ market scanner → funnel broke, AI too slow
-v4  Maker-Only BTC    4 May–1 Jun   55 days paper Chainlink maker     → the maker LOST money
-v5  Oracle Gap        1 Jun–28 Jun  shadow-only  measure edge first  → proved there was no edge ✅
-```
 
-See the [full timeline diagram](assets/timeline.svg) and the chapter-by-chapter walkthrough in [`docs/journey/`](docs/journey/).
+| Layer | Location | What is actually here |
+| --- | --- | --- |
+| Narrative | `docs/journey/`, `docs/AUTOPSY.md` | Chronological failure analysis and database figures |
+| Risk fragments | `bots/01-apex-shadow/risk/` | VPIN, Kelly, CVaR, hard limits — no signing or execution |
+| Early strategy fragments | `bots/01-apex-shadow/strategy/` | Base class, momentum detector, safety gate (incomplete) |
+| Analysis fragments | `bots/02-phantom/analysis/` | Ensemble, calibration, quantitative helpers (LLM keys are constructor args) |
+| Later strategy fragments | `bots/02-phantom/strategies/` | Interface plus political / snipe excerpts |
+| Measurement | `bots/03-05-spectrix/oracle/` | Calibration gate and divergence recording |
+| Historical ops | `bots/03-05-spectrix/watchdog.py` | Local launchd-era helper — **do not run** |
+| Schema | `bots/03-05-spectrix/db/schema.sql` | DDL and zero seeds, not a production dump |
 
----
+Removed on purpose: wallet client, order execution, live credentials, and the rest of the original engine. Details: [docs/architecture.md](docs/architecture.md).
 
-## The scoreboard
+## Repository Structure
 
-Each bot, what it bet on, and why it died. Outcomes are qualitative on purpose — the point isn't the exact P&L (it was tiny), it's the **pattern**.
-
-| # | Codename | What it tried | How it died | Lesson |
-|---|----------|---------------|-------------|--------|
-| v0 | **Apex Predator** | Avellaneda-Stoikov market maker on binary markets | Insane spread params (up to 129%), wrong USDC address, 56,000+ rejected orders → wallet flagged | Don't ship a market maker you haven't paper-traded for a day |
-| v1 | **Shadow Sniper** | Copy-whale + momentum + neg-risk arb + cross-venue | Bought 9 times, **never sold** (no auto-exit). Same wallet got banned | Build the *exit* before the entry |
-| v2 | **Phantom** | BTC 5-min UP/DOWN via 3-AI consensus (Claude+GPT+Gemini) | The "+profit" was **BTC beta, not alpha** — it just rode an uptrend. 5-min book is fully arbitraged by pros | A positive paper P&L on 100 trades is noise |
-| v3 | **Long-Tail Sniper** | AI scanner over 480+ "slow" markets (politics, sports, pop) | Funnel collapsed: 13,860 signals → 0 fills. AI latency (2–11s) ≫ opportunity window (<1s) | Elegant design, broken plumbing, too slow |
-| v4 | **Maker-Only BTC** | Chainlink fair-price maker + maker rebate on BTC 5m/15m/1h | 55 days of paper, adjusted P&L **negative** — the maker lost. Static fair-price on a moving market | Rebates don't cover adverse selection |
-| v5 | **Oracle Gap** | Measure edge *forward on real outcomes* before risking a cent | Proved the edge didn't exist (sport Brier 0.2377 ≈ coin-flip; BTC-Deribit win-rate 49%). Gate said **no** to everything | This is the version that told the truth |
-
----
-
-## Why *everything* failed — the recurring death patterns
-
-The same handful of mistakes killed all six. If you recognize yourself in these, stop and read the [autopsy](docs/AUTOPSY.md).
-
-1. **Edge never validated forward before going live.** A positive paper P&L on 50–100 trades is statistical noise. Every bot believed the noise.
-2. **The order book was treated as "inefficient." It isn't.** Liquid Polymarket books are arbitraged by professional HFT (Wintermute, GSR). By T-30s the price is already right. Retail net-of-fees margin ≈ 0.
-3. **AI latency > opportunity window.** A 3-model consensus takes 2–11 seconds. The repricing window is under a second. The decision always arrives too late.
-4. **Static fair-price on a market that moves.** A lookup table calibrated in one regime, used in another, either loses its edge or inverts it.
-5. **Asymmetric payoff mistaken for edge.** A ~49% win-rate with big-but-rare wins *looks* like profit. It's the price structure (betting NO at a low price), not a predictive advantage.
-6. **Impatience → a new "brilliant idea" every 2–3 weeks.** Six versions in three months. An honest validation takes 30+ days per category. The patience budget always ran out before the proof.
-7. **More time spent keeping the bot alive than finding an edge.** macOS sleep, TCC prompts, app-nap, dead watchdogs, 100 MB error logs. An enormous infrastructure tax on an edge that never existed.
-
----
-
-## What actually worked (the residual value)
-
-No profit — but these are now **proven with real data**, not opinions:
-
-- **BTC short-duration on Polymarket has no retail edge.** It died four separate ways (v0, v2, v4, v5). It's a structural wall, confirmed by external 2026 research (arb window shrank to ~2.7s; dynamic fees up to ~3% exist specifically to kill latency-arb).
-- **Shadow-first validation works as a shield.** Measuring a signal forward against real outcomes and *refusing to trade until it graduates* is the only part of this project that did its job perfectly. It said "there's nothing here," and it was right.
-- **The engineering was solid; the alpha was missing.** The immortal async service, the calibration gate, the free data-feed integrations, and a 5.76-million-tick dataset are genuinely reusable — for a *different* problem. See [`docs/journey/99-lessons.md`](docs/journey/99-lessons.md).
-
----
-
-## How to read this repo
-
-```
+```text
 polymarket-bot-graveyard/
-├── docs/journey/     ← START HERE. One chapter per bot, in order. Same skeleton each time:
-│                        Goal → Hypothesis → How I built it → What happened → Why it died → What survived
-├── docs/AUTOPSY.md   ← the full, unflinching final autopsy (real numbers, from the database)
-├── bots/             ← curated snapshots of each failed series (see bots/README.md)
-├── .env.example      ← placeholder names the snapshots actually read (no secrets)
-├── SECURITY.md       ← public security policy (archived experiment; watchdog risks)
-└── assets/           ← timeline diagram
+├── README.md
+├── CONTRIBUTING.md
+├── DISCLAIMER.md
+├── SECURITY.md
+├── SECURITY_AUDIT.md          # pre-PolyTutor audit; keep as-is
+├── LICENSE                    # MIT (code under bots/)
+├── LICENSE-DOCS               # CC BY 4.0 (writing)
+├── pytest.ini                 # collects tests/ only; excludes bots/
+├── .env.example               # placeholder names only
+├── docs/
+│   ├── architecture.md
+│   ├── getting-started.md
+│   ├── learning-path.md
+│   ├── experiment-guide.md
+│   ├── lessons-learned.md
+│   ├── watchdog-safety.md
+│   ├── AUTOPSY.md             # original closing autopsy
+│   └── journey/               # original chronological chapters
+├── bots/
+│   ├── 01-apex-shadow/
+│   ├── 02-phantom/
+│   └── 03-05-spectrix/        # includes watchdog.py (stay here)
+├── scripts/security/
+│   └── check_secrets.py
+├── tests/                     # quality-infrastructure only
+└── assets/timeline.svg
 ```
 
-Best path: [`docs/journey/00-overview.md`](docs/journey/00-overview.md) → the numbered chapters → [`docs/AUTOPSY.md`](docs/AUTOPSY.md).
+## Getting Started
 
-This is an archived experiment, not a live trading service. See [SECURITY.md](SECURITY.md) before copying any ops helper (especially `watchdog.py`).
+This archive is for **reading and inspection**. It is not a start-the-bot tutorial.
 
----
+Requirements for optional quality checks: Python 3.12 (CI version) and, for pytest, `pytest==8.3.4`.
 
-## Contributing — two ways in
+```text
+git clone https://github.com/PolyTutor-Labs/polymarket-bot-graveyard.git
+cd polymarket-bot-graveyard
+```
 
-This graveyard is open. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Then:
 
-- 🔬 **Autopsy & discussion** — think a failure diagnosis is wrong? Have your own prediction-market post-mortem? Know a structural reason an edge decayed? Open a [discussion issue](.github/ISSUE_TEMPLATE/share_postmortem.yml). Negative results welcome.
-- ⚒️ **Revive a strategy** — some of these were *close*. Fork it, fix a documented failure mode, run it forward honestly, and report back with an [issue](.github/ISSUE_TEMPLATE/revive_strategy.yml). The rule: **shadow-validate before you claim an edge.**
+1. Read [DISCLAIMER.md](DISCLAIMER.md) and [SECURITY.md](SECURITY.md).
+2. Follow [docs/learning-path.md](docs/learning-path.md).
+3. Inspect snapshots under `bots/`. Do **not** execute `bots/03-05-spectrix/watchdog.py`.
+4. Optionally run the quality commands in [Testing](#testing).
 
----
+Full study setup: [docs/getting-started.md](docs/getting-started.md).
+
+## Testing
+
+There is **no** suite that replays historical bot behavior or claims a result. CI checks syntax, secrets, and docs.
+
+```text
+python3 -m compileall -q -x '(.venv|venv|__pycache__|\.git)' .
+python3 scripts/security/check_secrets.py
+python3 -m pytest
+```
+
+`pytest.ini` sets `testpaths = tests` and excludes `bots/`. Markdown lint and offline internal-link checks run in [.github/workflows/ci.yml](.github/workflows/ci.yml).
+
+## Documentation
+
+| Document | Topic |
+| --- | --- |
+| [docs/getting-started.md](docs/getting-started.md) | How to study this archive |
+| [docs/architecture.md](docs/architecture.md) | Snapshot layers and what was removed |
+| [docs/learning-path.md](docs/learning-path.md) | Staged study sequence |
+| [docs/experiment-guide.md](docs/experiment-guide.md) | How to read one historical experiment |
+| [docs/lessons-learned.md](docs/lessons-learned.md) | Engineering lessons from the six deaths |
+| [docs/watchdog-safety.md](docs/watchdog-safety.md) | Why the historical watchdog must not be run |
+| [docs/journey/00-overview.md](docs/journey/00-overview.md) | Original chronological chapters |
+| [docs/AUTOPSY.md](docs/AUTOPSY.md) | Original closing autopsy (database figures) |
+| [SECURITY.md](SECURITY.md) | Secrets policy, snapshot classification, watchdog risks |
+| [SECURITY_AUDIT.md](SECURITY_AUDIT.md) | Pre-PolyTutor audit record (keep as-is) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | What contributions are accepted |
+| [DISCLAIMER.md](DISCLAIMER.md) | Educational-use disclaimer |
+
+## Risks and Limitations
+
+- **Archive ≠ live system.** Snapshots import modules that are not vendored (`polybot.*`, `src.*`, `asyncpg`, LLM SDKs, `numpy`). That incompleteness is a safety property.
+- **Watchdog is unsafe to execute.** `watchdog.py` can `pkill`/`kill` processes, start PostgreSQL via Homebrew, send iMessage via AppleScript, and mutate whatever database `DATABASE_URL` reaches. See [docs/watchdog-safety.md](docs/watchdog-safety.md).
+- **Paper and shadow figures are not live results.** Phantom’s raw paper ledger was an accounting artifact. v4’s adjusted paper result was negative. v5 never placed a live intent.
+- **Self-reports lied.** The original autopsy rule: read the database, not the bot’s own report.
+- **Legal and market risk.** Prediction markets are restricted in many jurisdictions. Automated trading can lose money quickly. The historical author lost real capital on v0/v1.
+- **No affiliation.** This is not a Polymarket product.
+
+## Security
+
+See [SECURITY.md](SECURITY.md). The frozen pre-transform audit is [SECURITY_AUDIT.md](SECURITY_AUDIT.md). Do not treat the audit as a live operations runbook.
+
+```text
+python3 scripts/security/check_secrets.py
+```
+
+Never commit `.env`, wallet material, phone numbers, or database dumps. Placeholder names live in [`.env.example`](.env.example).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Documentation, tests, educational improvements, research notes, and honest post-mortems are welcome. Do not add secrets, private keys, or claims that any snapshot is a method for extracting returns.
 
 ## Disclaimer
 
-This repository is a **retrospective and educational** account of my own experiments. It is **not financial advice**, not a strategy you should run with real money, and not an endorsement of prediction-market trading. Automated trading can lose money quickly; I lost real money doing exactly what's documented here. Prediction markets are legally restricted in many jurisdictions — check your own. You are responsible for what you do with this. See [DISCLAIMER.md](DISCLAIMER.md).
+Educational archive only. Historical and paper figures do not predict future results. Nothing here is a recommendation to trade.
 
----
+Full text: [DISCLAIMER.md](DISCLAIMER.md).
+
+## Attribution
+
+This repository is an educational packaging by **PolyTutor Labs** of the graveyard originally published as:
+
+**[https://github.com/Hiberius/polymarket-bot-graveyard](https://github.com/Hiberius/polymarket-bot-graveyard)**
+
+Upstream authors retain credit for the original experiments, snapshots, and autopsy writing. PolyTutor Labs organized, hardened, documented, and packaged this checkout for classroom and self-study use. We do **not** claim ownership of the original code. We are not affiliated with Polymarket or with the original authors unless they participate here separately.
 
 ## License
 
-- **Code** (everything in `bots/`): [MIT](LICENSE)
-- **Writing** (`docs/` including `docs/journey/`, this README): [CC BY 4.0](LICENSE-DOCS)
-
-Built and documented with [Claude Fable 5](https://www.anthropic.com/). The autopsy numbers come from the bot's PostgreSQL database, not its self-reported logs — because the bot lied about its own P&L, and that's a lesson too.
+- **Code** (`bots/`): [MIT](LICENSE) — copyright Hiberius (2026)
+- **Writing** (`docs/`, per-folder READMEs, this README): [CC BY 4.0](LICENSE-DOCS)
