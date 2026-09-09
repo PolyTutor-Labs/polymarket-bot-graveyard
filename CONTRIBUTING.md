@@ -17,7 +17,7 @@ No profit required. A well-documented failure is exactly what belongs here.
 Some of these bots were *close*. If you want to pick one up:
 
 1. **Fork** the repo.
-2. Pick a documented failure mode from a chapter in [`journey/`](journey/00-overview.md).
+2. Pick a documented failure mode from a chapter in [`docs/journey/`](docs/journey/00-overview.md).
 3. Fix it, and — this is the rule — **shadow-validate before you claim an edge.** Run it forward against real outcomes on a large, independent, multi-regime sample, net of fees, before you conclude anything. The [`calibration_gate.py`](bots/03-05-spectrix/oracle/calibration_gate.py) pattern exists for exactly this.
 4. Report back with an [issue](.github/ISSUE_TEMPLATE/revive_strategy.yml) — including your forward numbers, honestly. A negative result is a valid, valuable result.
 

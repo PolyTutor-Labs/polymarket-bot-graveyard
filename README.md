@@ -34,7 +34,7 @@ v4  Maker-Only BTC    4 May–1 Jun   55 days paper Chainlink maker     → the 
 v5  Oracle Gap        1 Jun–28 Jun  shadow-only  measure edge first  → proved there was no edge ✅
 ```
 
-See the [full timeline diagram](assets/timeline.svg) and the chapter-by-chapter walkthrough in [`journey/`](journey/).
+See the [full timeline diagram](assets/timeline.svg) and the chapter-by-chapter walkthrough in [`docs/journey/`](docs/journey/).
 
 ---
 
@@ -73,7 +73,7 @@ No profit — but these are now **proven with real data**, not opinions:
 
 - **BTC short-duration on Polymarket has no retail edge.** It died four separate ways (v0, v2, v4, v5). It's a structural wall, confirmed by external 2026 research (arb window shrank to ~2.7s; dynamic fees up to ~3% exist specifically to kill latency-arb).
 - **Shadow-first validation works as a shield.** Measuring a signal forward against real outcomes and *refusing to trade until it graduates* is the only part of this project that did its job perfectly. It said "there's nothing here," and it was right.
-- **The engineering was solid; the alpha was missing.** The immortal async service, the calibration gate, the free data-feed integrations, and a 5.76-million-tick dataset are genuinely reusable — for a *different* problem. See [`journey/99-lessons.md`](journey/99-lessons.md).
+- **The engineering was solid; the alpha was missing.** The immortal async service, the calibration gate, the free data-feed integrations, and a 5.76-million-tick dataset are genuinely reusable — for a *different* problem. See [`docs/journey/99-lessons.md`](docs/journey/99-lessons.md).
 
 ---
 
@@ -81,14 +81,14 @@ No profit — but these are now **proven with real data**, not opinions:
 
 ```
 polymarket-bot-graveyard/
-├── journey/          ← START HERE. One chapter per bot, in order. Same skeleton each time:
+├── docs/journey/     ← START HERE. One chapter per bot, in order. Same skeleton each time:
 │                        Goal → Hypothesis → How I built it → What happened → Why it died → What survived
-├── bots/             ← curated, sanitized code snapshots of each bot (the "greatest hits", secret-free)
 ├── docs/AUTOPSY.md   ← the full, unflinching final autopsy (real numbers, from the database)
+├── bots/             ← curated snapshots of each failed series (see bots/README.md)
 └── assets/           ← timeline diagram
 ```
 
-Best path: [`journey/00-overview.md`](journey/00-overview.md) → the numbered chapters → [`docs/AUTOPSY.md`](docs/AUTOPSY.md).
+Best path: [`docs/journey/00-overview.md`](docs/journey/00-overview.md) → the numbered chapters → [`docs/AUTOPSY.md`](docs/AUTOPSY.md).
 
 ---
 
@@ -110,6 +110,6 @@ This repository is a **retrospective and educational** account of my own experim
 ## License
 
 - **Code** (everything in `bots/`): [MIT](LICENSE)
-- **Writing** (`journey/`, `docs/`, this README): [CC BY 4.0](LICENSE-DOCS)
+- **Writing** (`docs/` including `docs/journey/`, this README): [CC BY 4.0](LICENSE-DOCS)
 
 Built and documented with [Claude Fable 5](https://www.anthropic.com/). The autopsy numbers come from the bot's PostgreSQL database, not its self-reported logs — because the bot lied about its own P&L, and that's a lesson too.

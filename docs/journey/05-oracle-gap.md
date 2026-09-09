@@ -1,6 +1,6 @@
 # 05 — Oracle Gap (v5)
 
-**Dates:** 1 June – 28 June 2026 · **Mode:** shadow-only, zero trade intent · **Outcome:** proved there was no edge — and that was the win · **Code:** in [`bots/03-05-spectrix/`](../bots/03-05-spectrix/)
+**Dates:** 1 June – 28 June 2026 · **Mode:** shadow-only, zero trade intent · **Outcome:** proved there was no edge — and that was the win · **Code:** in [`bots/03-05-spectrix/`](../../bots/03-05-spectrix/)
 
 The last version is the only one that succeeded, because it's the only one whose goal was to find out the *truth* rather than to make money. It found the truth. The truth was "there's nothing here." It said so, and I finally believed it.
 

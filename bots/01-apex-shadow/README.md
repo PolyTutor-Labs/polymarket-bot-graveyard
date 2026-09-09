@@ -1,6 +1,6 @@
 # bots/01-apex-shadow — Apex Predator & Shadow Sniper (v0–v1)
 
-Curated, sanitized snapshot from the original ~8,100-line trading engine that ran as v0/v1. **These are illustrative excerpts, not a runnable package** — the execution layer, wallet client, config, and API keys have been deliberately left out. Read the story in [`journey/01-apex-and-shadow.md`](../../journey/01-apex-and-shadow.md).
+Curated, sanitized snapshot from the original ~8,100-line trading engine that ran as v0/v1. **These are illustrative excerpts, not a runnable package** — the execution layer, wallet client, config, and API keys have been deliberately left out. Read the story in [`docs/journey/01-apex-and-shadow.md`](../../docs/journey/01-apex-and-shadow.md).
 
 The files here are the parts worth keeping: the **risk primitives**. They're pure logic with no Polymarket-specific assumptions, and they're the one thing this disaster produced that's reusable anywhere.
 
@@ -14,4 +14,4 @@ The files here are the parts worth keeping: the **risk primitives**. They're pur
 | `strategy/momentum_sniper.py` | Momentum detector — and a case study in the "95% false positives at boot with no warm-up" bug |
 | `strategy/safety_gate.py` | Pre-trade safety checks — including the inventory guard that was *supposed* to prevent "buy and never sell" |
 
-> ⚠️ `safety_gate.py` is here as a lesson, not a template: in v1 it was simultaneously too strict (it blocked selling) and too loose (it never enforced an exit). The [chapter](../../journey/01-apex-and-shadow.md) explains what went wrong.
+> ⚠️ `safety_gate.py` is here as a lesson, not a template: in v1 it was simultaneously too strict (it blocked selling) and too loose (it never enforced an exit). The [chapter](../../docs/journey/01-apex-and-shadow.md) explains what went wrong.

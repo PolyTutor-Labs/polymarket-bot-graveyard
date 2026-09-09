@@ -1,6 +1,6 @@
 # 99 — Lessons: what three months of failure actually taught
 
-This is the synthesis chapter — the part that's worth more than all the code. If you read only one file in this repo, read the [autopsy](../docs/AUTOPSY.md); if you read two, read this one too.
+This is the synthesis chapter — the part that's worth more than all the code. If you read only one file in this repo, read the [autopsy](../AUTOPSY.md); if you read two, read this one too.
 
 ## The seven death patterns
 
@@ -40,14 +40,14 @@ Every bot died of some combination of these. They're ordered by how expensive th
 
 The engineering was solid; only the alpha was missing. If you need infrastructure for something that *isn't* this:
 
-- **Immortal async service** — launchd + `caffeinate -i` + a heartbeat watchdog with `os._exit(1)` self-restart. Ran 8 days straight and self-healed through sleep/wake. See [`bots/03-05-spectrix/`](../bots/03-05-spectrix/).
+- **Immortal async service** — launchd + `caffeinate -i` + a heartbeat watchdog with `os._exit(1)` self-restart. Ran 8 days straight and self-healed through sleep/wake. See [`bots/03-05-spectrix/`](../../bots/03-05-spectrix/).
 - **Shadow-first / calibration gate** — Brier + reliability + `graduated` flag. Honest by construction. Reusable to validate *any* predictive signal.
 - **Free data-feed integrations** — ESPN scoreboard + win-probability, Polymarket Gamma + CLOB WebSocket, Deribit options, The Odds API. All no-key or free-tier.
 - **A real dataset** — 5.76M CLOB ticks + 2.55M Chainlink prices, archived for offline research.
-- **Risk primitives** — VPIN toxic-flow detection, Kelly sizing, CVaR, hard limits. Pure logic, in [`bots/01-apex-shadow/`](../bots/01-apex-shadow/).
+- **Risk primitives** — VPIN toxic-flow detection, Kelly sizing, CVaR, hard limits. Pure logic, in [`bots/01-apex-shadow/`](../../bots/01-apex-shadow/).
 
 ## The one-sentence version
 
 **The most valuable thing an honest trading system can produce is a well-measured "no."** Everything in this graveyard was an expensive way of learning to trust that "no" the first time instead of the sixth.
 
-→ Read the full [autopsy](../docs/AUTOPSY.md) · back to the [overview](00-overview.md)
+→ Read the full [autopsy](../AUTOPSY.md) · back to the [overview](00-overview.md)

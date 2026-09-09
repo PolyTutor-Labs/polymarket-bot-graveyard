@@ -1,6 +1,6 @@
 # 02 — Phantom (v2)
 
-**Dates:** 11 April – 4 May 2026 · **Mode:** paper only · **Outcome:** "profitable" — and that was a lie · **Code:** [`bots/02-phantom/`](../bots/02-phantom/)
+**Dates:** 11 April – 4 May 2026 · **Mode:** paper only · **Outcome:** "profitable" — and that was a lie · **Code:** [`bots/02-phantom/`](../../bots/02-phantom/)
 
 With the live wallet banned, v2 was a clean-sheet rebuild ("SPECTRIX 2.0"). It's the version that taught me the difference between **beta** and **alpha**, the hard way, over a fake $2,491 profit.
 
@@ -14,7 +14,7 @@ A single model is a coin toss, but an **ensemble of three frontier LLMs** (Claud
 
 ## How I built it
 
-A single async process running the fleet, a 3-AI consensus gate (2-of-3 to approve, 2-of-3 to reject), a Postgres database for every decision and trade, and a live dashboard. The code artifact for this era is [`polybot`](../bots/02-phantom/) — the strategy modules (`snipe`, `political`, `mean_reversion`, `cross_venue`, `market_maker`, `forecast`, `live_game`) and the analysis layer (`ensemble`, `calibration`, `quant`, `win_probability`) all live there.
+A single async process running the fleet, a 3-AI consensus gate (2-of-3 to approve, 2-of-3 to reject), a Postgres database for every decision and trade, and a live dashboard. The code artifact for this era is [`polybot`](../../bots/02-phantom/) — the strategy modules (`snipe`, `political`, `mean_reversion`, `cross_venue`, `market_maker`, `forecast`, `live_game`) and the analysis layer (`ensemble`, `calibration`, `quant`, `win_probability`) all live there.
 
 ## What happened
 

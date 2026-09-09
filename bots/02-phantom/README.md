@@ -1,6 +1,6 @@
 # bots/02-phantom — Phantom (v2)
 
-Curated, sanitized snapshot from `polybot`, the multi-strategy Python bot behind the "SPECTRIX 2.0 / Phantom" era. **Illustrative excerpts, not a runnable package** — API keys are injected as parameters/env in the originals and are not present here. Read the story in [`journey/02-phantom.md`](../../journey/02-phantom.md).
+Curated, sanitized snapshot from `polybot`, the multi-strategy Python bot behind the "SPECTRIX 2.0 / Phantom" era. **Illustrative excerpts, not a runnable package** — API keys are injected as parameters/env in the originals and are not present here. Read the story in [`docs/journey/02-phantom.md`](../../docs/journey/02-phantom.md).
 
 These files show the two ideas that defined v2: a **3-AI consensus gate** and a **portfolio of strategies**.
 

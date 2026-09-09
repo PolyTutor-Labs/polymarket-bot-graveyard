@@ -1,6 +1,6 @@
 # 01 — Apex Predator & Shadow Sniper (v0–v1)
 
-**Dates:** 29 March – 5 April 2026 · **Mode:** live, real money · **Outcome:** ~$45 lost, wallet banned · **Code:** [`bots/01-apex-shadow/`](../bots/01-apex-shadow/)
+**Dates:** 29 March – 5 April 2026 · **Mode:** live, real money · **Outcome:** ~$45 lost, wallet banned · **Code:** [`bots/01-apex-shadow/`](../../bots/01-apex-shadow/)
 
 This is the only chapter where real money changed hands. It's also the shortest-lived and the most instructive, because it made every beginner mistake at once.
 
@@ -47,7 +47,7 @@ The 5-April post-mortem for this bot cataloged **37 distinct bugs** and produced
 >
 > **Exit before entry.** The selling system must work *before* you're allowed to buy.
 
-Concretely reusable and carried forward: the risk primitives (`vpin.py`, `kelly.py`, `cvar.py`), the SQLite state manager, and the paper-trading simulator — pure logic with no Polymarket-specific assumptions. Those files are in [`bots/01-apex-shadow/`](../bots/01-apex-shadow/).
+Concretely reusable and carried forward: the risk primitives (`vpin.py`, `kelly.py`, `cvar.py`), the SQLite state manager, and the paper-trading simulator — pure logic with no Polymarket-specific assumptions. Those files are in [`bots/01-apex-shadow/`](../../bots/01-apex-shadow/).
 
 Everything else — the market maker, the neg-risk scanner, the ghost-order router — was thrown away. And the biggest lesson wasn't in the code at all: **the wallet ban meant that from this point on, every remaining version was paper or shadow only.** The graveyard's real-money chapter closes here.
 
