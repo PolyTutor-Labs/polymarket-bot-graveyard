@@ -24,7 +24,8 @@ Some of these bots were *close*. If you want to pick one up:
 ## Ground rules
 
 - **Be honest with numbers.** Read results out of your database, not your bot's self-report. (Ours lied; assume yours does too.)
-- **Never post secrets.** No API keys, wallet keys, seed phrases, or private RPC URLs in issues or PRs.
+- **Never post secrets.** No API keys, wallet keys, seed phrases, or private RPC URLs in issues or PRs. See [SECURITY.md](SECURITY.md). Report suspected leaks privately via [security advisories](https://github.com/PolyTutor-Labs/polymarket-bot-graveyard/security/advisories/new).
+- **Do not run `bots/03-05-spectrix/watchdog.py` on a real host.** It is a historical ops helper (`pkill` / AppleScript / Homebrew). Behavior is preserved for education, not for reuse.
 - **This is not investment advice** and contributions must not present it as such. See [DISCLAIMER.md](DISCLAIMER.md).
 - Keep discussion technical and respectful.
 
